@@ -1,2 +1,3 @@
 # nodejs-socketio-chatroom
-A simpple chatroom
+A simple chatroom
+## A simple chatroom built in [Node.js](http://nodejs.org) using [Socket.IO](http://socket.io/).
