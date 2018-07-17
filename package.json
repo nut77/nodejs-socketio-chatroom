@@ -1,0 +1,30 @@
+{
+  "name": "nodejs-socketio-chatroom",
+  "version": "1.0.0",
+  "description": "A simple chatroom",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "socket.io": "^2.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nut77/nodejs-socketio-chatroom.git"
+  },
+  "keywords": [
+    "nodejs",
+    "soketio",
+    "chatroom"
+  ],
+  "author": "sunnynut",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nut77/nodejs-socketio-chatroom/issues"
+  },
+  "homepage": "https://github.com/nut77/nodejs-socketio-chatroom#readme"
+}
