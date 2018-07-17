@@ -32,7 +32,7 @@ io.sockets.on('connection', socket => {
 
         users.push(user);
         io.sockets.emit('login', user);
-        io.sockets.emit('userlist', users);
+        io.sockets.emit('chgUserlist', users);
     });
 
     socket.on('chat', data => {
@@ -44,6 +44,6 @@ io.sockets.on('connection', socket => {
 
         users.splice(users.indexOf(user), 1);
         socket.broadcast.emit('exit', user);
-        io.sockets.emit('userlist', users);
+        socket.broadcast.emit('chgUserlist', users);
     });
 });

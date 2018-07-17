@@ -58,13 +58,19 @@
 // 按钮样式
 .btn {
   width: 110px;
-  border: @border;
+  border: 1px solid;
   border-radius: 20px;
   color: @normal-color;
   line-height: 25px;
   cursor: pointer;
+  &[disabled='disabled'] {
+    border-color: #0e3d69 !important;
+    background-color: #4f697e !important;
+    cursor: not-allowed;
+  }
 }
 .btn-primary {
+  border-color: @border-color;
   background-color: rgba(0, 125, 248, 0.5);
   &:hover {
     background-color: rgba(0, 125, 248, 1);
@@ -72,6 +78,7 @@
 
 }
 .btn-error {
+  border-color: rgb(236, 89, 137);
   background-color: rgba(185, 72, 104, 0.7);
   &:hover {
     background-color: rgba(185, 72, 104, 1);
@@ -85,6 +92,10 @@
   background-color: rgba(12, 24, 44, 0.6);
   line-height: 25px;
   text-indent: 10px;
+  &[disabled] {
+    background-color: #4f697e;
+    cursor: not-allowed;
+  }
 }
 
 // 借用bootstrap的栅格系统

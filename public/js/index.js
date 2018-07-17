@@ -46,6 +46,27 @@ let userlistBox = getDom.byClass('userlist');
 // 相关变量
 let socket;
 
+// 按钮相关操作
+const btnAction = {
+    init() {
+
+        exitBtn.setAttribute('disabled', 'disabled');
+        sendMsgBtn.setAttribute('disabled', 'disabled');
+    },
+    exit() {
+
+        exitBtn.setAttribute('disabled', 'disabled');
+        sendMsgBtn.setAttribute('disabled', 'disabled');
+        loginBtn.setAttribute('disabled', 'disabled');
+    },
+    ready() {
+
+        exitBtn.removeAttribute('disabled');
+        sendMsgBtn.removeAttribute('disabled');
+        loginBtn.setAttribute('disabled', 'disabled');
+    }
+};
+
 // 绑定事件
 loginBtn.onclick = login;
 exitBtn.onclick = exit;
@@ -80,14 +101,15 @@ function login() {
         socket.on('login', user => {
 
             addMsg(`欢迎用户<b class="text-primary">${user}</b>进入聊天室`);
-            loginBtn.disabled = true;
+            inputFiled.disabled = true;
+            btnAction.ready();
         });
 
         // 改变用户列表
         socket.on('chgUserlist', users => {
 
-            userlistBox.removeChild('dd');
-            for (let user in users) {
+            removeChildNode(userlistBox, getDom.byTag('dd', true));
+            for (let user of users) {
 
                 let item = document.createElement('dd');
                 item.innerText = user;
@@ -98,29 +120,27 @@ function login() {
         // 发送消息
         socket.on('chat', data => {
 
-            addMsg(`${(new Date()).Format('yyyy-MM-dd hh:mm:ss', true)}：<b class="text-primary">${data.user}</b>说"${data.msg}" `);
+            addMsg(`<b class="text-primary">${data.user}</b>说"${data.msg}" `);
         });
 
         // 断开连接
         socket.on('disconnect', user => {
 
             addMsg(`与聊天服务器的连接已断开。`);
-            exitBtn.disabled = sendMsgBtn.disabled = loginBtn.disabled = true;
-            userlistBox.removeChild('dd');
+            removeChildNode(userlistBox, getDom.byTag('dd', true));
+            btnAction.exit();
         });
 
         // 退出聊天
         socket.on('exit', data => {
 
-            addMsg(`${(new Date()).Format('yyyy-MM-dd hh:mm:ss', true)}：<b class="text-primary">${data.user}</b>已退出聊天室。`);
+            addMsg(`<b class="text-primary">${data}</b>已退出聊天室。`);
         });
 
         // 重复登录用户名操作
-        socket.on('duplicateUser', data => {
+        socket.on('duplicateUser', () => {
 
             alert('该用户名已被使用，修改用户名后重新登录');
-            exitBtn.disabled = sendMsgBtn.disabled = true;
-            loginBtn.disabled = '';
         });
 
         // 连接发生错误
@@ -138,9 +158,9 @@ function login() {
 function sendMsg() {
 
     let msg = textareaField.value;
-    if (0 < msg.leading) {
+    if (0 < msg.length) {
 
-        socket.emit('chat', {user: inputFiled.value.trim(), data: msg});
+        socket.emit('chat', {user: inputFiled.value.trim(), msg});
         textareaField.value = '';
     }
 }
@@ -151,9 +171,32 @@ function exit() {
     socket.emit('exit', inputFiled.value.trim());
     socket.disconnect();
     socket.removeAllListeners('connect');
-    io.sockets = {};
-    addMsg(`${(new Date()).Format('yyyy-MM-dd hh:mm:ss', true)}：<b class="text-primary">${data.user}</b>已退出聊天室。`);
-    exitBtn.disabled = sendMsgBtn.disabled = true;
-    loginBtn.disabled = '';
-    userlistBox.removeChild('dd');
+    addMsg(`<b class="text-primary">${data}</b>已退出聊天室。`);
+    btnAction.exit();
 }
+
+// 删除子节点
+function removeChildNode(parent, children) {
+
+    console.log(children.length);
+    if (!children || 0 == children.length) {
+
+        return false;
+    }
+    if (children.length) {
+
+        for (let child of children) {
+
+            parent.removeChild(child);
+        }
+    } else {
+
+        parent.removeChild(children);
+    }
+}
+
+window.onload = () => {
+
+    inputFiled.value = textareaField.value = '';
+    btnAction.init();
+};

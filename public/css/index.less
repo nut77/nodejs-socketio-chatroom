@@ -8,8 +8,7 @@
 @border: 1px solid @border-color;
 
 body, html {
-  width: 100%;
-  height: 100%;
+  min-height: 430px;
   color: @normal-color;
   // background: linear-gradient(125deg, #0c274d, #031329);
   background: linear-gradient(to bottom right, #0d4973, #031340) fixed;
@@ -19,7 +18,7 @@ body, html {
   flex-direction: column;
   width: 1220px;
   min-height: 100%;
-  padding: 15px 0;
+  padding: 10px 0;
   margin: 0 auto;
 }
 .header {
@@ -37,7 +36,7 @@ body, html {
 }
 .login {
   align-content: center;
-  height: 100px;
+  height: 80px;
   border-bottom: 1px solid;
   .border-linear;
 }
@@ -58,6 +57,9 @@ body, html {
 }
 .chat-msg {
   width: 80%;
+  p {
+    line-height: 20px;
+  }
 }
 .chat-user {
   width: 20%;
