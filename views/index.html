@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="container">
+    <!--顶部标题-->
+    <header class="header">
+        <h3 class="header-title">Sokcet.Io简易聊天室</h3>
+    </header>
+    <!--登录聊天模块-->
+    <div class="login row">
+        <div class="col-9">
+            <label class="margin-l-10">用户名：</label>
+            <input id="user" name="user" class="input-field login-input" type="text" placeholder="用户名" autofocus>
+        </div>
+        <div class="col-3">
+            <button id="exit" class="btn btn-error pull-right margin-l-30 margin-r-10" type="button" disabled>退出</button>
+            <button id="login" class="btn btn-primary pull-right" type="button">登录</button>
+        </div>
+    </div>
+    <!--聊天模块-->
+    <div class="chat-box">
+        <div class="chat-msg pull-left"></div>
+        <div class="chat-user pull-right">
+            <dl class="userlist">
+                <dt>用户列表</dt>
+            </dl>
+        </div>
+        <div class="chat-push">
+            <textarea id="msg" name="msg" class="push-msg input-field" placeholder="请输入需要发送的消息"></textarea>
+            <button id="sendMsg" class="btn btn-primary push-btn" type="button" disabled>发送</button>
+        </div>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
