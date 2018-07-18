@@ -108,6 +108,7 @@ function login() {
         // 改变用户列表
         socket.on('chgUserlist', users => {
 
+            userlistBox.innerHTML = '<dt>用户列表</dt>';
             removeChildNode(userlistBox, getDom.byTag('dd', true));
             for (let user of users) {
 
@@ -127,7 +128,7 @@ function login() {
         socket.on('disconnect', user => {
 
             addMsg(`与聊天服务器的连接已断开。`);
-            removeChildNode(userlistBox, getDom.byTag('dd', true));
+            userlistBox.innerHTML = '<dt>用户列表</dt>';
             btnAction.exit();
         });
 
@@ -171,14 +172,13 @@ function exit() {
     socket.emit('exit', inputFiled.value.trim());
     socket.disconnect();
     socket.removeAllListeners('connect');
-    addMsg(`<b class="text-primary">${data}</b>已退出聊天室。`);
+    addMsg(`<b class="text-primary">${inputFiled.value.trim()}</b>已退出聊天室。`);
     btnAction.exit();
 }
 
 // 删除子节点
 function removeChildNode(parent, children) {
 
-    console.log(children.length);
     if (!children || 0 == children.length) {
 
         return false;
