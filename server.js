@@ -4,7 +4,7 @@ const socketIo = require('socket.io');
 const favicon = require('serve-favicon');
 
 const app = express();
-const server = http.createServer(app);
+const server = http.createServer(app); // <==> const server = app.listen(2000);
 server.listen(2000);
 
 app.use(favicon(__dirname + '/favicon.ico'));
