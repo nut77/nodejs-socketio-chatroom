@@ -1,11 +1,13 @@
 const http = require('http');
 const express = require('express');
 const socketIo = require('socket.io');
+const favicon = require('serve-favicon');
 
 const app = express();
 const server = http.createServer(app);
 server.listen(2000);
 
+app.use(favicon(__dirname + '/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
 app.get('/index', (req, res) => {
 
